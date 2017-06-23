@@ -22,3 +22,26 @@ noise = numpy.random.randn(x.shape[0]) * noise_variance
 # Create targets t
 t = f(x) + noise
 
+# Plotting the data into graph
+plt.scatter(x, t)
+
+"""Implementing neural network functions"""
+
+
+# define the neural network
+def nn(x, w):
+    return x * w
+
+
+# define a cost function
+def cost(y, t):
+    return ((t - y) ** 2).sum()
+
+"""plot the cost vs the given weight"""
+ws = numpy.linspace(0, 4, num=100)
+cost_ws = numpy.vectorize(lambda w: cost(nn(x, w), t)) (ws) # cost for each weight in ws
+
+# plot it
+plt.plot(ws, cost_ws)
+plt.grid()
+
