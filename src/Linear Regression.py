@@ -45,3 +45,12 @@ cost_ws = numpy.vectorize(lambda w: cost(nn(x, w), t)) (ws) # cost for each weig
 plt.plot(ws, cost_ws)
 plt.grid()
 
+
+"""Defining gradient descent"""
+def gradient(w, x, t):
+    return 2 * x * (nn(x, w) - t)
+
+
+def delta_w(w_k, x, t, learning_rate):
+    return learning_rate * gradient(w_k, x, t).sum()
+
