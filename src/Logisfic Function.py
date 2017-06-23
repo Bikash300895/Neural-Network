@@ -14,3 +14,8 @@ plt.ylabel('$\sigma(z)$', fontsize=15)
 plt.title('logistic function')
 plt.grid()
 plt.show()
+
+
+def logistic_derivative(z):
+    y = logistic(z)
+    return y * (1 - y)
