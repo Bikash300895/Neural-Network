@@ -54,3 +54,35 @@ def gradient(w, x, t):
 def delta_w(w_k, x, t, learning_rate):
     return learning_rate * gradient(w_k, x, t).sum()
 
+# Set the initial weight parameter
+w = 0.1
+# set learning rate
+learning_rate = 0.1
+
+# start performing the gradient updates, and print the weight and cost:
+nb_of_iterations = 10
+w_cost = [(w, cost(nn(x, w), t) )]
+for i in range(nb_of_iterations):
+    dw = delta_w(w, x, t, learning_rate) # Get the delta w update
+    w = w - dw # update the current weight parameter
+    w_cost.append((w, cost(nn(x, w), t)))
+    
+    
+# Plot the first 2 gradient descent updates
+plt.plot(ws, cost_ws, 'r-')  # Plot the error curve
+
+
+ # Plot the fitted line agains the target line
+# Plot the target t versus the input x
+plt.plot(x, t, 'o', label='t')
+# Plot the initial line
+plt.plot([0, 1], [f(0), f(1)], 'b-', label='f(x)')
+# plot the fitted line
+plt.plot([0, 1], [0*w, 1*w], 'r-', label='fitted line')
+plt.xlabel('input x')
+plt.ylabel('target t')
+plt.ylim([0,2])
+plt.title('input vs. target')
+plt.grid()
+plt.legend(loc=2)
+plt.show()
