@@ -33,7 +33,6 @@ plt.axis([-4, 4, -4, 4])
 plt.title('red vs. blue classes in the input space')
 plt.show()
 
-
 """Define functions"""
 
 
@@ -51,6 +50,27 @@ def nn_predict(x, w):
 
 
 def cost(y, t):
-    return - np.sum(np.multiply(t, np.log(y)) + np.multiply((1-t), np.log(1-y)))
+    return - np.sum(np.multiply(t, np.log(y)) + np.multiply((1 - t), np.log(1 - y)))
 
 
+# Plot the cost function of the weights
+nb_of_ws = 100
+ws1 = np.linspace(-5, 5, num=nb_of_ws)
+ws2 = np.linspace(-5, 5, num=nb_of_ws)
+ws_x, ws_y = np.meshgrid(ws1, ws2)
+cost_ws = np.zeros((nb_of_ws, nb_of_ws))
+
+# fill the cost matrix for each combination of weights
+for i in range(nb_of_ws):
+    for j in range(nb_of_ws):
+        cost_ws[i, j] = cost(nn(X, np.asmatrix([ws_x[i, j], ws_y[i, j]])), t)
+
+# Plot the cost function surface
+plt.contourf(ws_x, ws_y, cost_ws, 20, cmap=cm.pink)
+cbar = plt.colorbar()
+cbar.ax.set_ylabel('$\\xi$', fontsize=15)
+plt.xlabel('$w_1$', fontsize=15)
+plt.ylabel('$w_2$', fontsize=15)
+plt.title('Cost function surface')
+plt.grid()
+plt.show()
