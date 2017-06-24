@@ -86,3 +86,42 @@ def delta_w(w_k, x, t ,learning_rate):
     return learning_rate * gradient(w_k, x ,t)
 
 
+# Gradient descent update
+# Set the initial weight parameter
+w = np.asmatrix([-4, -2])
+# Set the learning rate
+learning_rate = 0.05
+
+# Start the gradient descent updates and plot the iterations
+nb_of_iterations = 10
+w_iter = [w]
+for i in range(nb_of_iterations):
+    dw = delta_w(w, X, t, learning_rate)
+    w = w - dw
+    w_iter.append(w)
+
+
+# Plot the first weight updates on the error surface
+# Plot the error surface
+plt.contourf(ws_x, ws_y, cost_ws, 20, alpha=0.9, cmap=cm.pink)
+cbar = plt.colorbar()
+cbar.ax.set_ylabel('cost')
+
+# Plot the updates
+for i in range(1, 4):
+    w1 = w_iter[i-1]
+    w2 = w_iter[i]
+    # Plot the weight-cost value and the line that represents the update
+    plt.plot(w1[0,0], w1[0,1], 'bo')  # Plot the weight cost value
+    plt.plot([w1[0,0], w2[0,0]], [w1[0,1], w2[0,1]], 'b-')
+    plt.text(w1[0,0]-0.2, w1[0,1]+0.4, '$w({})$'.format(i), color='b')
+w1 = w_iter[3]
+# Plot the last weight
+plt.plot(w1[0,0], w1[0,1], 'bo')
+plt.text(w1[0,0]-0.2, w1[0,1]+0.4, '$w({})$'.format(4), color='b')
+# Show figure
+plt.xlabel('$w_1$', fontsize=15)
+plt.ylabel('$w_2$', fontsize=15)
+plt.title('Gradient descent updates on cost surface')
+plt.grid()
+plt.show()
