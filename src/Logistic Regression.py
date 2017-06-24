@@ -74,3 +74,15 @@ plt.ylabel('$w_2$', fontsize=15)
 plt.title('Cost function surface')
 plt.grid()
 plt.show()
+
+
+# Define the gradient descent
+def gradient(w, x, t):
+    return (nn(x, w) -t).T * x
+
+
+# define the update function delta w which return the delta w for each weight in a vector
+def delta_w(w_k, x, t ,learning_rate):
+    return learning_rate * gradient(w_k, x ,t)
+
+
