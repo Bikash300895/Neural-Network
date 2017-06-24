@@ -125,3 +125,32 @@ plt.ylabel('$w_2$', fontsize=15)
 plt.title('Gradient descent updates on cost surface')
 plt.grid()
 plt.show()
+
+
+# Plot the resulting decision boundary
+# Generate a grid over the input space to plot the color of the
+#  classification at that grid point
+nb_of_xs = 200
+xs1 = np.linspace(-4, 4, num=nb_of_xs)
+xs2 = np.linspace(-4, 4, num=nb_of_xs)
+xx, yy = np.meshgrid(xs1, xs2) # create the grid
+# Initialize and fill the classification plane
+classification_plane = np.zeros((nb_of_xs, nb_of_xs))
+for i in range(nb_of_xs):
+    for j in range(nb_of_xs):
+        classification_plane[i,j] = nn_predict(np.asmatrix([xx[i,j], yy[i,j]]) , w)
+# Create a color map to show the classification colors of each grid point
+cmap = ListedColormap([
+        colorConverter.to_rgba('r', alpha=0.30),
+        colorConverter.to_rgba('b', alpha=0.30)])
+
+# Plot the classification plane with decision boundary and input samples
+plt.contourf(xx, yy, classification_plane, cmap=cmap)
+plt.plot(x_red[:,0], x_red[:,1], 'ro', label='target red')
+plt.plot(x_blue[:,0], x_blue[:,1], 'bo', label='target blue')
+plt.grid()
+plt.legend(loc=2)
+plt.xlabel('$x_1$', fontsize=15)
+plt.ylabel('$x_2$', fontsize=15)
+plt.title('red vs. blue classification boundary')
+plt.show()
