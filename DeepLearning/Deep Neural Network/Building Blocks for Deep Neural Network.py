@@ -104,3 +104,12 @@ def linear_activation_forward(A_prev, W, b, activation):
     cache = (linear_cache, activation_cache)
 
     return A, cache
+
+
+# Calculating Cost
+def compute_cost(A2, Y):
+    m = Y.shape[1] # number of example
+    cost = -1/m*(np.sum( (Y* np.log(A2)) + ((1-Y)*np.log(1-A2) )))
+    
+    return cost
+
