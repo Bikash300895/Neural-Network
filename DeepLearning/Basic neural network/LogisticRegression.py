@@ -39,7 +39,7 @@ def sigmoid(z):
     return 1/(1+np.exp(-z))
 
 # test the tunction
-#print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
+# print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 
 def propagate(W, X, b, Y):
     # number of example 
