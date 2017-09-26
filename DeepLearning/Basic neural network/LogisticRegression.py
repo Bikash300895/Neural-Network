@@ -30,6 +30,12 @@ def initialize_paramaters(dim):
     
     return w, b
 
+def initialize_with_zero(dim):
+    w = np.random.randn(dim)
+    b = 0
+    
+    return w, b
+
 W, b = initialize_paramaters(dim=(train_set_x.shape[0], 1))
 
 
@@ -125,10 +131,10 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     ### START CODE HERE ###
     
     # initialize parameters with zeros (≈ 1 line of code)
-    W, b = initialize_paramaters(dim=(X_train.shape[0], 1))
+    W, b = initialize_with_zero(dim=(X_train.shape[0], 1))
 
     # Gradient descent (≈ 1 line of code)
-    parameters, grads, costs = optimize(W, X_train, b, Y_train,num_iterations = 2000, learning_rate = 0.5, print_cost = True)
+    parameters, grads, costs = optimize(W, X_train, b, Y_train,num_iterations = num_iterations, learning_rate = learning_rate, print_cost = True)
     
     # Retrieve parameters w and b from dictionary "parameters"
     W = parameters["W"]
@@ -156,6 +162,6 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     return d
         
         
-d = model(train_set_x, y_train, test_set_x, y_test, num_iterations = 2000, learning_rate = 0.005, print_cost = True)      
+d = model(train_set_x, y_train, test_set_x, y_test, num_iterations = 10000, learning_rate = 0.005, print_cost = True)      
         
         
