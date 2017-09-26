@@ -31,7 +31,7 @@ def initialize_paramaters(dim):
     return w, b
 
 def initialize_with_zero(dim):
-    w = np.random.randn(dim)
+    w = np.zeros(dim)
     b = 0
     
     return w, b
@@ -131,7 +131,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     ### START CODE HERE ###
     
     # initialize parameters with zeros (≈ 1 line of code)
-    W, b = initialize_with_zero(dim=(X_train.shape[0], 1))
+    W, b = initialize_paramaters(dim=(X_train.shape[0], 1))
 
     # Gradient descent (≈ 1 line of code)
     parameters, grads, costs = optimize(W, X_train, b, Y_train,num_iterations = num_iterations, learning_rate = learning_rate, print_cost = True)
@@ -162,6 +162,18 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     return d
         
         
-d = model(train_set_x, y_train, test_set_x, y_test, num_iterations = 10000, learning_rate = 0.005, print_cost = True)      
+d = model(train_set_x, y_train, test_set_x, y_test, num_iterations = 4000, learning_rate = 0.005, print_cost = True)      
         
-        
+""" Part 7 : Post implementation (hypre parameter tuning) """
+learning_rates = [0.01, 0.001, 0.0001]
+accuracies = []
+costs = []
+for i in learning_rates:
+    print("Running training for learning rate ", i)
+    d = model(train_set_x, y_train, test_set_x, y_test, num_iterations = 4000, learning_rate = i, print_cost = True)      
+    accuracies.append(100 - np.mean(np.abs(d["Y_prediction_test"] - y_test)) * 100)
+    costs.append(d["costs"])
+
+plt.scatter(learning_rates, accuracies)
+plt.plot(learning_rates, accuracies)
+plt.scatter(learning_rates, costs)
