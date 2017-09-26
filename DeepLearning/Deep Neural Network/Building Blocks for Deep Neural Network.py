@@ -29,6 +29,15 @@ def initialize_parameters(n_x, n_h, n_y):
     return parameters
 
 def initialize_parameters_deep(layer_dims):
+    """
+    Arguments:
+    layer_dims -- python array (list) containing the dimensions of each layer in our network
+    
+    Returns:
+    parameters -- python dictionary containing your parameters "W1", "b1", ..., "WL", "bL":
+                    Wl -- weight matrix of shape (layer_dims[l], layer_dims[l-1])
+                    bl -- bias vector of shape (layer_dims[l], 1)
+    """
     parameters = {}
     L = len(layer_dims)            # number of layers in the network
 
@@ -42,3 +51,24 @@ def initialize_parameters_deep(layer_dims):
 
         
     return parameters
+
+
+def linear_forward(A, W, b):
+    """
+    Implement the linear part of a layer's forward propagation.
+
+    Arguments:
+    A -- activations from previous layer (or input data): (size of previous layer, number of examples)
+    W -- weights matrix: numpy array of shape (size of current layer, size of previous layer)
+    b -- bias vector, numpy array of shape (size of the current layer, 1)
+
+    Returns:
+    Z -- the input of the activation function, also called pre-activation parameter 
+    cache -- a python dictionary containing "A", "W" and "b" ; stored for computing the backward pass efficiently
+    """
+    
+
+    Z = np.dot(W,A) + b
+    cache = (A, W, b)
+    
+    return Z, cache
