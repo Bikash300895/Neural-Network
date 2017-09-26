@@ -34,6 +34,30 @@ W, b = initialize_paramaters(dim=(train_set_x.shape[0], 1))
 
 
 """  part 4 - Forword Propagation """
+# Defining activation fucntions
+def sigmoid(z):
+    return 1/(1+np.exp(-z))
+
+def propagagte(W, X, b, Y):
+    # number of example 
+    m = X.shape[1]
+    
+    # coputing gradient
+    Z = np.dot(W.T, X) + b
+    A = sigmoid(Z)
+    dZ = A - Y
+    dW = (np.dot(X, dZ.T))/m
+    db = np.sum(dZ) / m
+    
+    # compute the cost
+    cost = -1/m*(np.sum( np.dot(Y, np.log(A)) + np.dot((1-Y)*np.log(1-A) )))
+    
+    gradients = {
+                "dw" : dW,
+                "db" : db
+            }
+    return gradients, cost
+
 
     
 
