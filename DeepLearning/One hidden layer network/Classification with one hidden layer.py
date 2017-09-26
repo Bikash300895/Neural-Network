@@ -59,6 +59,13 @@ def forward_propagation(X, parameters):
     
     return A2, cache
 
+# Calculating Cost
+def compute_cost(A2, Y, parameters):
+    m = Y.shape[1] # number of example
+    cost = -1/m*(np.sum( (Y* np.log(A2)) + ((1-Y)*np.log(1-A2) )))
+    
+    return cost
+
 
 
 
