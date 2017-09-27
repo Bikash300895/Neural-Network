@@ -45,6 +45,7 @@ def initialize_parameters_deep(layer_dims):
     return parameters
         
 
+""" Part 4 - Forword propagation """
 def linear_forward(A, W, b):
     Z = np.dot(W, A) + b
     linear_cache = (A, W, b)
@@ -52,8 +53,23 @@ def linear_forward(A, W, b):
     return Z, linear_cache
 
 
+def sigmoid(z):
+    A = 1/(1+np.exp(-z))
+    cache = z
+    
+    return A, cache
+
+def relu(z):
+    A = np.maximum(0, z)
+    cache = z
+    
+    return A, cache
 
 
+def linear_activation_forward(A_prev, W, b, activation):
+    if activation=="sigmoid":
+        Z, linear_cache = linear_forward(A_prev, W, b)
+        
 
 
 
