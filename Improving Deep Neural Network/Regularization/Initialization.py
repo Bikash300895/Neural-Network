@@ -13,6 +13,36 @@ plt.rcParams['image.cmap'] = 'gray'
 # load image dataset: blue/red dots in circles
 train_X, train_Y, test_X, test_Y = load_dataset()
 
+""" Helper function for init weieghts"""
+def initialize_parameters_zeros(layers_dims):
+    """
+    Arguments:
+    layer_dims -- python array (list) containing the size of each layer.
+    
+    Returns:
+    parameters -- python dictionary containing your parameters "W1", "b1", ..., "WL", "bL":
+                    W1 -- weight matrix of shape (layers_dims[1], layers_dims[0])
+                    b1 -- bias vector of shape (layers_dims[1], 1)
+                    ...
+                    WL -- weight matrix of shape (layers_dims[L], layers_dims[L-1])
+                    bL -- bias vector of shape (layers_dims[L], 1)
+    """
+    
+    parameters = {}
+    L = len(layers_dims)            # number of layers in the network
+    
+    for l in range(1, L):
+        parameters['W' + str(l)] = np.zeros((layers_dims[l], layers_dims[l-1]))
+        parameters['b' + str(l)] = np.zeros((layers_dims[l], 1))
+    return parameters
+
+# testing the function
+#parameters = initialize_parameters_zeros([3,2,1])
+#print("W1 = " + str(parameters["W1"]))
+#print("b1 = " + str(parameters["b1"]))
+#print("W2 = " + str(parameters["W2"]))
+#print("b2 = " + str(parameters["b2"]))
+
 
 # Defining the model
 def model(X, Y, learning_rate = 0.01, num_iterations = 15000, print_cost = True, initialization = "he"):
