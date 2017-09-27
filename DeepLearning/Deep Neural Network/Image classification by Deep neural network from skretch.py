@@ -290,7 +290,7 @@ train_x = train_x_flatten/255.
 test_x = test_x_flatten/255.
 
 layers_dims = [12288, 20, 7, 5, 1] #  5-layer model
-parameters = L_layer_model(train_x, train_y, layers_dims, learning_rate=0.0075, num_iterations = 2500, print_cost = True)
+parameters = L_layer_model(train_x, train_y, layers_dims, learning_rate=0.0075, num_iterations = 5000, print_cost = True)
     
 pred_train = predict(train_x, train_y, parameters)
 pred_test = predict(test_x, test_y, parameters)
