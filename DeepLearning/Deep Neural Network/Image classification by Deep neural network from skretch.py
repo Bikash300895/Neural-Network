@@ -7,6 +7,8 @@ import scipy
 from PIL import Image
 from scipy import ndimage
 from dnn_app_utils_v2 import *
+from testCases_v3 import *
+from dnn_utils_v2 import sigmoid, sigmoid_backward, relu, relu_backward
 
 
 plt.rcParams['figure.figsize'] = (5.0, 4.0) # set default size of plots
@@ -44,7 +46,12 @@ def initialize_parameters_deep(layer_dims):
         
 
 def linear_forward(A, W, b):
+    Z = np.dot(W, A) + b
+    linear_cache = (A, W, b)
     
+    return Z, linear_cache
+
+
 
 
 
