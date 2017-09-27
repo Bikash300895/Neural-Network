@@ -150,3 +150,15 @@ def backward_propagation_with_regularization(X, Y, cache, lambd):
         gradients["dW"+str(l+1)] += lambd/(m) * W
     
     return gradients
+
+parameters = model(train_X, train_Y, lambd = 0.7)
+print ("On the train set:")
+predictions_train = predict(train_X, train_Y, parameters)
+print ("On the test set:")
+predictions_test = predict(test_X, test_Y, parameters)
+
+plt.title("Model with L2-regularization")
+axes = plt.gca()
+axes.set_xlim([-0.75,0.40])
+axes.set_ylim([-0.75,0.65])
+plot_decision_boundary(lambda x: predict_dec(parameters, x.T), train_X, train_Y)
