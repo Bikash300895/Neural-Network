@@ -117,6 +117,23 @@ def compute_cost(AL, Y):
     return cost
 
 
+def linear_backward(dZ, linear_cache):
+    A_prev, W, b = linear_cache
+    m = A_prev.shape[1]
+    
+    dW = np.dot(dZ, A_prev.T)/m
+    db = np.sum(dZ, axis=1, keepdims=True)/m
+    dA_prev = np.dot(W.T, dZ)
+    
+    return dA_prev, dW, db
+
+
+def linear_activation_backward(dA, cache, activation):
+    linear_cache, activation_cache = cache
+    
+    if activation == "sigmoid"
+    
+
 
 
 
