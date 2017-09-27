@@ -8,7 +8,7 @@ from PIL import Image
 from scipy import ndimage
 from dnn_app_utils_v2 import *
 from testCases_v3 import *
-from dnn_utils_v2 import sigmoid, sigmoid_backward, relu, relu_backward
+from dnn_utils_v2 import sigmoid_backward,  relu_backward
 
 
 plt.rcParams['figure.figsize'] = (5.0, 4.0) # set default size of plots
@@ -69,6 +69,16 @@ def relu(z):
 def linear_activation_forward(A_prev, W, b, activation):
     if activation=="sigmoid":
         Z, linear_cache = linear_forward(A_prev, W, b)
+        A, activation_cache = sigmoid(Z)
+        
+    elif activation == "relu":
+        Z, linear_cache = linear_forward(A_prev, W, b)
+        A, activation_cache = relu(Z)
+        
+    cache = (linear_cache, activation_cache)
+    return A, cache
+
+
         
 
 
