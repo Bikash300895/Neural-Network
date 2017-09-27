@@ -15,32 +15,13 @@ plt.rcParams['image.interpolation'] = 'nearest'
 plt.rcParams['image.cmap'] = 'gray'
 
 
-np.random.seed(1)
 
-
-"""Part 2 - Importing and preprocessing data"""
-# loading dataset
-train_x_orig, train_y, test_x_orig, test_y, classes = load_data()
-
-# Reshape trainning and test example
-train_x_flat = train_x_orig.reshape(train_x_orig.shape[0], -1).T
-test_x_flat = test_x_orig.reshape(test_x_orig.shape[0], -1).T
-
-# Standarize the data to have values between 0 and 1
-train_x = train_x_flat/255
-test_x = test_x_flat/255
-
-layers_dims = [12288, 20, 7, 5, 1] #  5-layer model
-
-
-"""Part 3 - Initialize the neural network"""
-np.random.seed(3)
 def initialize_parameters_deep(layer_dims):
     L = len(layer_dims)
     parameters = {}
     
     for l in range(1, L):
-        parameters["W"+str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) * 0.01
+        parameters["W"+str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) / np.sqrt(layer_dims[l-1]) #* 0.01
         parameters["b"+str(l)] = np.zeros((layer_dims[l], 1))
     
     return parameters
@@ -296,23 +277,22 @@ def L_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 30
     return parameters
 
 # Training the model
-parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = 2500, print_cost = True)
+np.random.seed(1)
+
+train_x_orig, train_y, test_x_orig, test_y, classes = load_data()
+
+# Reshape the training and test examples 
+train_x_flatten = train_x_orig.reshape(train_x_orig.shape[0], -1).T   # The "-1" makes reshape flatten the remaining dimensions
+test_x_flatten = test_x_orig.reshape(test_x_orig.shape[0], -1).T
+
+# Standardize data to have feature values between 0 and 1.
+train_x = train_x_flatten/255.
+test_x = test_x_flatten/255.
+
+layers_dims = [12288, 20, 7, 5, 1] #  5-layer model
+parameters = L_layer_model(train_x, train_y, layers_dims, learning_rate=0.0075, num_iterations = 2500, print_cost = True)
     
 pred_train = predict(train_x, train_y, parameters)
 pred_test = predict(test_x, test_y, parameters)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
