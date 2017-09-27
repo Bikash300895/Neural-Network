@@ -79,7 +79,20 @@ def linear_activation_forward(A_prev, W, b, activation):
     return A, cache
 
 
+def L_model_forword(X, parameters):
+    caches = []
+    L = len(parameters)//2 + 1
+    A = X
+    
+    for l in range(1, L-1):
+        A, cache = linear_activation_forward(A, parameters["W"+str(l), parameters["b"+str(l)], "relu"])
+        caches.append(cache)
         
+    AL, cache = linear_activation_forward(A, parameters["W"+str(L-1), parameters["b"+str(L-1)], "sigmoid"])
+    caches.append(cache)    
+     
+    return AL, caches
+
 
 
 
