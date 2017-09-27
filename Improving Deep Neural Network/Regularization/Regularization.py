@@ -127,3 +127,26 @@ def compute_cost_with_regularization(A3, Y, parameters, lambd):
     return cost
 
 
+def backward_propagation_with_regularization(X, Y, cache, lambd):
+    """
+    Implements the backward propagation of our baseline model to which we added an L2 regularization.
+    
+    Arguments:
+    X -- input dataset, of shape (input size, number of examples)
+    Y -- "true" labels vector, of shape (output size, number of examples)
+    cache -- cache output from forward_propagation()
+    lambd -- regularization hyperparameter, scalar
+    
+    Returns:
+    gradients -- A dictionary with the gradients with respect to each parameter, activation and pre-activation variables
+    """
+    m = X.shape[1]
+
+    gradients = backward_propagation(X, Y, cache)
+    
+    L = len(cache)//4
+    for l in range(0, L):
+        W = cache[l*4 + 2]
+        gradients["dW"+str(l+1)] += lambd/(m) * W
+    
+    return gradients
