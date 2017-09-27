@@ -8,7 +8,6 @@ from PIL import Image
 from scipy import ndimage
 from dnn_app_utils_v2 import *
 from testCases_v3 import *
-from dnn_utils_v2 import sigmoid_backward,  relu_backward
 
 
 plt.rcParams['figure.figsize'] = (5.0, 4.0) # set default size of plots
@@ -173,8 +172,39 @@ def sigmoid_backward(dA, cache):
 def linear_activation_backward(dA, cache, activation):
     linear_cache, activation_cache = cache
     
-    if activation == "sigmoid"
+    if activation == "sigmoid":
+        dZ = sigmoid_backward(dA, activation_cache)
+        dA_prev, dW, db = linear_backward(dZ, linear_cache)
+        
+    elif activation == "relu":
+        dZ = relu_backward(dA, activation_cache)
+        dA_prev, dW, db = linear_backward(dZ, linear_cache)
+        
+    return dA_prev, dW, db
+
+
+
+def L_model_backward(AL, Y, caches):
+    grads = {}
+    L = len(caches)
+    Y = Y.reshape(AL.shape)
     
+    # Initializing the backpropagation
+    dAL = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
+    
+    cache = caches[L-1]
+    # sigmoid activation in last layer
+    grads["dA" + str(L)], grads["dW" + str(L)], grads["db" + str(L)] = linear_activation_backward(dAL, cache, activation = "sigmoid")
+    
+    # relu activation in rest of the layers
+    for l in reversed(range(L-1)):
+        current_cache = caches[l]
+        dA_prev_temp, dW_temp, db_temp = linear_activation_backward(grads["dA" + str(l + 2)], current_cache, activation = "relu")
+        grads["dA" + str(l + 1)] = dA_prev_temp
+        grads["dW" + str(l + 1)] = dW_temp
+        grads["db" + str(l + 1)] = db_temp
+        
+    return grads
 
 
 
