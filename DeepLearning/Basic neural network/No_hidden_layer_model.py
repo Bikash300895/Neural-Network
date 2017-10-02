@@ -42,11 +42,50 @@ def initialize_random_variable(dim):
     return w, b
 
 
-def initialize_with_zeros(dim):
-    return np.zeros((dim, 1))
+W, b = initialize_random_variable(train_x.shape[0])
 
-W = initialize_random_variable(train_x.shape[0])
-b = initialize_with_zeros()
+
+""" Part 3 : Forward Propagation """
+def sigmoid(z):
+    return 1/(1 + np.exp(-z))
+
+# definig forward propagation
+def propagate(W, X, b, Y):
+    Z = np.dot(W.T, X)
+    A = sigmoid(Z)
+    
+    # number of example
+    m = X.shape[1]
+    
+    # computing the cost
+    cost = -np.sum((Y*np.log(A)) + (1-Y)*np.log(1-A))/m
+    
+    # derivative calculation
+    dZ = A - Y
+    dW = np.dot(X, dZ.T) / m
+    db = np.sum(dZ) / m
+    
+    gradients = {
+                "dW" : dW,
+                "db" : db
+            }
+    return gradients, cost
+    
+gradients, cost = propagate(W, train_x, b, train_y)
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
