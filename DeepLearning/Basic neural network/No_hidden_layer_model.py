@@ -126,10 +126,45 @@ def accuracy():
 accuracy()
 
 
+# Marge all this to build the model
+def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate = 0.5, print_cost = False):
+    
+    ### START CODE HERE ###
+    
+    # initialize parameters with zeros (≈ 1 line of code)
+    W, b = initialize_random_variable(X_train.shape[0])
+
+    # Gradient descent (≈ 1 line of code)
+    parameters, grads, costs = optimize(W, X_train, b, Y_train,num_iterations = num_iterations, learning_rate = learning_rate, print_cost = True)
+    
+    # Retrieve parameters w and b from dictionary "parameters"
+    W = parameters["W"]
+    b = parameters["b"]
+    
+    # Predict test/train set examples (≈ 2 lines of code)
+    Y_prediction_test = predict(W, X_test, b)
+    Y_prediction_train = predict(W, X_train, b)
+
+    ### END CODE HERE ###
+
+    # Print train/test Errors
+    print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
+    print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100))
+
+    
+    d = {"costs": costs,
+         "Y_prediction_test": Y_prediction_test, 
+         "Y_prediction_train" : Y_prediction_train, 
+         "w" : W, 
+         "b" : b,
+         "learning_rate" : learning_rate,
+         "num_iterations": num_iterations}
+    
+    return d    
     
     
-    
-    
+d = model(train_x, train_y, test_x, test_y, num_iterations = 4000, learning_rate = 0.005, print_cost = True)      
+
     
     
     
