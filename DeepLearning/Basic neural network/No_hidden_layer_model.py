@@ -163,7 +163,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     return d    
     
     
-d = model(train_x, train_y, test_x, test_y, num_iterations = 4000, learning_rate = 0.005, print_cost = True)  
+d = model(train_x, train_y, test_x, test_y, num_iterations = 4000, learning_rate = 0.001, print_cost = True)  
 
 
 """ Part 5 : Post implementation """
@@ -180,7 +180,11 @@ plt.scatter(learning_rates, accuracies)
 plt.plot(learning_rates, accuracies)
 plt.scatter(learning_rates, costs)    
 
-    
+# Conclusing
+"""
+Accuracy : 74% on test, 96% on train
+learning rate to work best: 0.001
+"""
     
     
     
