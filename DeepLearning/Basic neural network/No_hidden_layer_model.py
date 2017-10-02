@@ -163,7 +163,22 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     return d    
     
     
-d = model(train_x, train_y, test_x, test_y, num_iterations = 4000, learning_rate = 0.005, print_cost = True)      
+d = model(train_x, train_y, test_x, test_y, num_iterations = 4000, learning_rate = 0.005, print_cost = True)  
+
+
+""" Part 5 : Post implementation """
+learning_rates = [0.01, 0.001, 0.0001]
+accuracies = []
+costs = []
+for i in learning_rates:
+    print("Running training for learning rate ", i)
+    d = model(train_x, train_y, test_x, test_y, num_iterations = 4000, learning_rate = i, print_cost = True)      
+    accuracies.append(100 - np.mean(np.abs(d["Y_prediction_test"] - test_y)) * 100)
+    costs.append(d["costs"])
+
+plt.scatter(learning_rates, accuracies)
+plt.plot(learning_rates, accuracies)
+plt.scatter(learning_rates, costs)    
 
     
     
