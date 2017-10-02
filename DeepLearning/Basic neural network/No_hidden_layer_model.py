@@ -37,7 +37,7 @@ test_y = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
 
 """ Part 2 : Defining neural network """
 def initialize_random_variable(dim):
-    w = np.random.randn(dim, 1)
+    w = np.random.randn(dim, 1) / np.sqrt(dim)
     b = 0
     return w, b
 
@@ -74,7 +74,53 @@ def propagate(W, X, b, Y):
 gradients, cost = propagate(W, train_x, b, train_y)
     
 
+""" Part 4 : BackProp/ Optimization """
+def optimize(W, X, b, Y, num_iterations, learning_rate, print_cost=False):
+    costs = []
+    
+    for i in range(num_iterations):
+        grads, cost = propagate(W, X, b, Y)
+        dW = grads["dW"]
+        db = grads["db"]
+        
+        W = W - learning_rate * dW
+        b = b - learning_rate * db
+        
+        if i %100 == 99:
+            costs.append(cost)
+        
+        if print_cost and i%100 == 99:
+            print("Cost ater iteratrions %i: %f" %(i+1, cost))
+            
+        params = {
+                    "W": W,
+                    "b": b
+                }
+        
+    return params, grads, costs
 
+params, grads, costs = optimize(W, train_x, b, train_y, num_iterations=2000, learning_rate=0.01, print_cost=True)
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
