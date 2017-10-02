@@ -13,8 +13,31 @@ def load_dateset():
     
     classes = np.array(test_dataset["list_classes"][:])
     
-    train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
-    test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
     
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
+
+"""Part 1: importing and preprocessing data"""
+train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes = load_dateset()
+
+# Show an image
+import matplotlib.pyplot as plt
+plt.imshow(train_set_x_orig[25])
+
+# Reshaping data
+train_x_flatten = train_set_x_orig.reshape((train_set_x_orig.shape[0], -1)).T
+test_x_flatten = test_set_x_orig.reshape((test_set_x_orig.shape[0], -1)).T
+
+train_x = train_x_flatten/255
+test_x = test_x_flatten/255
+
+train_y = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
+test_y = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
+
+
+
+""" Part 2 : Defining neural network """
+
+
+
+
 
