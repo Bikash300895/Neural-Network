@@ -36,8 +36,17 @@ test_y = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
 
 
 """ Part 2 : Defining neural network """
+def initialize_random_variable(dim):
+    w = np.random.randn(dim, 1)
+    b = 0
+    return w, b
 
 
+def initialize_with_zeros(dim):
+    return np.zeros((dim, 1))
+
+W = initialize_random_variable(train_x.shape[0])
+b = initialize_with_zeros()
 
 
 
