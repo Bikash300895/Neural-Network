@@ -101,8 +101,31 @@ def optimize(W, X, b, Y, num_iterations, learning_rate, print_cost=False):
 
 params, grads, costs = optimize(W, train_x, b, train_y, num_iterations=2000, learning_rate=0.01, print_cost=True)
 
+
+
+""" Part 5 : Measuring the performance """    
+def predict(W, X, b):
+    m = X.shape[1]
+    Y_prediction = np.zeros((1, m))
     
+    A = sigmoid(np.dot(W.T, X) + b)
     
+    for i in range(m):
+        if A[0, i] > 0.5:
+            Y_prediction[0, i] = 1
+            
+    return Y_prediction
+
+def accuracy():
+    Y_prediction_test = predict(W, test_x, b)
+    Y_prediction_train = predict(W, train_x, b)
+    
+    print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - train_y)) * 100))
+    print("test accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_test - test_y)) * 100))
+
+accuracy()
+
+
     
     
     
